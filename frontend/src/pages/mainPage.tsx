@@ -81,12 +81,8 @@ function MainPage() {
                     onUnlock={handleFinalPuzzleUnlock}
                 >
                     <div className="space-y-6">
-                        <p>
-                            Ici se trouvera le contenu de l'énigme finale.
-                        </p>
-
-                        <p>
-                            Textes, images, cartes...
+                        <p className="whitespace-pre-line">
+                            {finalPuzzle.description}
                         </p>
                     </div>
                 </FinalPuzzleCard>
