@@ -2,6 +2,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+import os
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -21,16 +23,19 @@ from pathlib import Path
 
 app = FastAPI()
 
-Path("uploads/puzzles").mkdir(
+UPLOADS_DIR = os.getenv("UPLOADS_DIR")
+
+Path(f"{UPLOADS_DIR}/puzzles").mkdir(
     parents=True,
     exist_ok=True
 )
 
 app.mount(
     "/uploads",
-    StaticFiles(directory="uploads"),
+    StaticFiles(directory=UPLOADS_DIR),
     name="uploads"
 )
+
 
 Base.metadata.create_all(bind=engine)
 initialize_puzzles()
