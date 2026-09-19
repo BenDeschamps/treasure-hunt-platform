@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { login } from "../services/authService";
 import { useNavigate } from "react-router-dom";
-
+import { Eye, EyeOff } from "lucide-react";
 
 function LoginForm() {
     const [teamName, setTeamName] = useState("");
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
+
     const navigate = useNavigate();
 
     async function handleSubmit(event: React.FormEvent) {
@@ -17,9 +19,7 @@ function LoginForm() {
         if (result.access_token && result.token_type === "bearer") {
             localStorage.setItem("access_token", result.access_token);
             navigate("/");
-        } 
-        else 
-        {
+        } else {
             setMessage("Identifiants invalides");
         }
     }
@@ -30,6 +30,7 @@ function LoginForm() {
                 <label className="block mb-2 text-sm font-medium text-gray-700">
                     Nom d'équipe
                 </label>
+
                 <input
                     type="text"
                     value={teamName}
@@ -43,13 +44,33 @@ function LoginForm() {
                 <label className="block mb-2 text-sm font-medium text-gray-700">
                     Mot de passe
                 </label>
-                <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Entrez le mot de passe"
-                    className="w-full rounded-lg border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
+
+                <div className="relative">
+                    <input
+                        type={showPassword ? "text" : "password"}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="Entrez le mot de passe"
+                        className="w-full rounded-lg border border-gray-300 px-4 py-3 pr-12 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+
+                    <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute inset-y-0 right-0 flex items-center px-4 text-gray-500 transition hover:text-gray-700"
+                        aria-label={
+                            showPassword
+                                ? "Masquer le mot de passe"
+                                : "Afficher le mot de passe"
+                        }
+                    >
+                        {showPassword ? (
+                            <EyeOff size={20} />
+                        ) : (
+                            <Eye size={20} />
+                        )}
+                    </button>
+                </div>
             </div>
 
             <button
