@@ -16,7 +16,7 @@ function LoginForm() {
 
         if (result.access_token && result.token_type === "bearer") {
             localStorage.setItem("access_token", result.access_token);
-            navigate("/main");
+            navigate("/");
         } 
         else 
         {
