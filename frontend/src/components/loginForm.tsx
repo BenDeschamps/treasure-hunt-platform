@@ -65,9 +65,9 @@ function LoginForm() {
                         }
                     >
                         {showPassword ? (
-                            <EyeOff size={20} />
-                        ) : (
                             <Eye size={20} />
+                        ) : (
+                            <EyeOff size={20} />
                         )}
                     </button>
                 </div>
